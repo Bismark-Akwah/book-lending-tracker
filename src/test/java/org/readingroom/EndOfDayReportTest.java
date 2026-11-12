@@ -1,3 +1,5 @@
+package org.readingroom;
+
 import org.junit.jupiter.api.Test;
 
 import java.io.ByteArrayOutputStream;

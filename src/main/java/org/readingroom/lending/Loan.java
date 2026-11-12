@@ -1,7 +1,9 @@
+package org.readingroom.lending;
+
 import java.util.Objects;
 
 /** A record of one item lent to one member. Created and closed only by {@link Library}. */
-final class Loan {
+public final class Loan {
     private final int id;
     private final int itemId;
     private final String memberName;
@@ -20,27 +22,27 @@ final class Loan {
         this.loanDays = loanDays;
     }
 
-    int id() {
+    public int id() {
         return id;
     }
 
-    int itemId() {
+    public int itemId() {
         return itemId;
     }
 
-    String memberName() {
+    public String memberName() {
         return memberName;
     }
 
-    String itemTitle() {
+    public String itemTitle() {
         return itemTitle;
     }
 
-    int loanDays() {
+    public int loanDays() {
         return loanDays;
     }
 
-    boolean isActive() {
+    public boolean isActive() {
         return status == LoanStatus.ACTIVE;
     }
 

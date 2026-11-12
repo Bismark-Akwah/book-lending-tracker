@@ -45,7 +45,7 @@ The same report gives two different answers to "who has this book?". I will save
 
 ### 2. All state is public and mutable
 
-- **What:** `title`, `type`, `status`, `currentBorrower`, `kind`, `history` and the loan fields are all `public` and writable. `Library.items` and `members` are public lists.
+- **What:** `title`, `type`, `status`, `currentBorrower`, `kind`, `history` and the loan fields are all `public` and writable. `Library` and `members` are public lists.
 - **Root cause:** no encapsulation. Nothing protects the invariants of any object.
 - **Risk:** any code can write `item.status = "banana"` or clear a borrower, bypassing every rule. This is the direct cause of problem 1 and of the volunteers' fear: because anything can touch anything, a change in one place can break another.
 
@@ -205,7 +205,7 @@ ReportPrinter ..> Library : reads
 - **Rules live with the item.** Each item type answers `loanDays(MemberKind)` itself (polymorphism), replacing the string if/else chain. `Library` depends only on the `LendingItem` interface, never on `Book` or `AudioKit`.
 - **Plain interface, not sealed.** E-loans should arrive as one new file with no edit to existing code. Sealing would force an edit to the `permits` list, and there are no type switches for exhaustiveness to protect. `Library` also rejects non-positive loan periods, which guards against a faulty future item type.
 - **Enums for member kind and loan status**, which remove string comparison and typo risk.
-- **Identity by id**, not by title or name, which fixes problem 5. Records compare by value, so each item carries a unique id and `Library` keys on that. The id is given when the item is created (for example `new Book(1, "Things Fall Apart")`) and `Library.addItem` rejects a duplicate id, so there is no static counter. `Loan` stores the `itemId`; the title and member name are kept only so the report can print them.
+- **Identity by id**, not by title or name, which fixes problem 5. Records compare by value, so each item carries a unique id and `Library` keys on that. The id is given when the item is created (for example `new Book(1, "Things Fall Apart")`) and `Library` rejects a duplicate id, so there is no static counter. `Loan` stores the `itemId`; the title and member name are kept only so the report can print them.
 - **Encapsulation throughout.** Private final fields, validated constructors, read-only views of collections, loan ids generated per `Library` instead of a static global. Only `Library` can create or close a `Loan`.
 - **No inheritance hierarchy and no strategy or factory classes.** Books and audio kits share a contract, not state or behaviour, so an interface is enough. Anything more would be over-engineering for two item types.
 - **Behaviour preserved.** Same console strings, same ordering, same sequential loan ids. A rejected borrow does not consume an id. The only intended difference is that the double-borrow is now refused.

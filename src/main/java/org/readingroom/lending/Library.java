@@ -1,3 +1,5 @@
+package org.readingroom.lending;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -8,22 +10,22 @@ import java.util.Optional;
  * It is the only owner of loan state, and it guarantees an item is on at most one
  * active loan at a time.
  */
-final class Library {
+public final class Library {
     private final String name;
     private final List<LendingItem> items = new ArrayList<>();
     private final List<Member> members = new ArrayList<>();
     private final List<Loan> loans = new ArrayList<>();
     private int nextLoanId = 1;
 
-    Library(String name) {
+    public Library(String name) {
         this.name = Objects.requireNonNull(name, "name");
     }
 
-    String name() {
+    public String name() {
         return name;
     }
 
-    void addItem(LendingItem item) {
+    public void addItem(LendingItem item) {
         Objects.requireNonNull(item, "item");
         boolean idTaken = items.stream().anyMatch(existing -> existing.id() == item.id());
         if (idTaken) {
@@ -32,7 +34,7 @@ final class Library {
         items.add(item);
     }
 
-    void addMember(Member member) {
+    public void addMember(Member member) {
         members.add(Objects.requireNonNull(member, "member"));
     }
 
@@ -41,7 +43,7 @@ final class Library {
      *
      * @throws ItemUnavailableException if the item is already on loan; nothing changes in that case
      */
-    void borrow(Member member, LendingItem item) {
+    public void borrow(Member member, LendingItem item) {
         Objects.requireNonNull(member, "member");
         Objects.requireNonNull(item, "item");
 
@@ -59,30 +61,30 @@ final class Library {
     }
 
     /** Takes an item back. Returning an item that is not out is harmless, as in the original. */
-    void returnItem(LendingItem item) {
+    public void returnItem(LendingItem item) {
         Objects.requireNonNull(item, "item");
         findActiveLoan(item).ifPresent(Loan::markReturned);
         System.out.println("Returned \"" + item.title() + "\"");
     }
 
     /** Name of the member currently holding the item, or empty if it is available. */
-    Optional<String> findBorrower(LendingItem item) {
+    public Optional<String> findBorrower(LendingItem item) {
         return findActiveLoan(item).map(Loan::memberName);
     }
 
-    List<LendingItem> items() {
+    public List<LendingItem> items() {
         return List.copyOf(items);
     }
 
-    List<Member> members() {
+    public List<Member> members() {
         return List.copyOf(members);
     }
 
-    List<Loan> loans() {
+    public List<Loan> loans() {
         return List.copyOf(loans);
     }
 
-    void printReport() {
+    public void printReport() {
         System.out.println();
         System.out.println("=== " + name + " - end of day ===");
         System.out.println("Items:");

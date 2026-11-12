@@ -1,5 +1,7 @@
+package org.readingroom.lending;
+
 /** Something the library can lend. Each kind of item owns its own loan rules. */
-interface LendingItem {
+public interface LendingItem {
 
     int id();
 

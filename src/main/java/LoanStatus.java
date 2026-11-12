@@ -1,0 +1,4 @@
+enum LoanStatus {
+    ACTIVE,
+    RETURNED
+}

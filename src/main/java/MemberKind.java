@@ -1,0 +1,4 @@
+enum MemberKind {
+    STANDARD,
+    STUDENT
+}

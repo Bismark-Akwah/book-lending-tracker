@@ -13,8 +13,8 @@ public class LendingTracker {
         lib.addItem(novel);
         lib.addItem(audioCourse);
 
-        Member kofi = new Member("Kofi Mensah", "STANDARD");
-        Member ama = new Member("Ama Owusu", "STUDENT");
+        Member kofi = new Member("Kofi Mensah", MemberKind.STANDARD);
+        Member ama = new Member("Ama Owusu", MemberKind.STUDENT);
         lib.addMember(kofi);
         lib.addMember(ama);
 

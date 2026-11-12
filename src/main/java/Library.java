@@ -24,7 +24,7 @@ class Library {
         int loanDays = 0;
         if (item.type.equals("BOOK")) {
             loanDays = 14;
-            if (m.kind.equals("STUDENT")) {
+            if (m.kind == MemberKind.STUDENT) {
                 loanDays = 28; // students get longer loans
             }
             item.status = "ON_LOAN";
@@ -32,7 +32,7 @@ class Library {
             System.out.println("Lent \"" + item.title + "\" to " + m.name + " for " + loanDays + " days");
         } else if (item.type.equals("AUDIO_KIT")) {
             loanDays = 7;
-            if (m.kind.equals("STUDENT")) {
+            if (m.kind == MemberKind.STUDENT) {
                 loanDays = 14; // students get longer loans
             }
             item.status = "ON_LOAN";

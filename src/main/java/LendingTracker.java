@@ -24,7 +24,11 @@ public class LendingTracker {
         lib.returnItem(audioCourse);
 
         // ... and the sort of thing that worries them:
-        lib.borrow(ama, novel); // the novel is already out with Kofi, but nothing stops this
+        try {
+            lib.borrow(ama, novel); // the novel is already out with Kofi, so this is now refused
+        } catch (ItemUnavailableException e) {
+            System.out.println("Rejected: " + e.getMessage());
+        } // the novel is already out with Kofi, but nothing stops this
 
         lib.printReport();
     }

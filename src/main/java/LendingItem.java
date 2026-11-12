@@ -1,16 +1,13 @@
-class LendingItem {
-    public String title;
-    public String type;   // "BOOK" or "AUDIO_KIT"
-    public String status; // "AVAILABLE" or "ON_LOAN"
-    public String currentBorrower;
-    public int id;
-    static int counter = 1;
+/** Something the library can lend. Each kind of item owns its own loan rules. */
+interface LendingItem {
 
-    public LendingItem(String title, String type) {
-        this.id = counter;
-        counter++;
-        this.title = title;
-        this.type = type;
-        this.status = "AVAILABLE";
-    }
+    int id();
+
+    String title();
+
+    /** Label used in the end-of-day report, for example "BOOK". */
+    String typeLabel();
+
+    /** Number of days this item may be borrowed by a member of the given kind. */
+    int loanDays(MemberKind kind);
 }

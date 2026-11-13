@@ -1,3 +1,5 @@
+package org.readingroom;
+
 import org.junit.jupiter.api.Test;
 
 import java.io.ByteArrayOutputStream;
@@ -8,12 +10,13 @@ import java.nio.file.Path;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-class OriginalBehaviourTest {
+/** Runs the demo program and compares its output with the approved result. */
+class EndOfDayReportTest {
 
     @Test
-    void originalProgramOutputMatchesGoldenFile() throws Exception {
+    void demoOutputMatchesApprovedResult() throws Exception {
         String expected = normalise(Files.readString(
-                Path.of("src/test/resources/golden-original.txt"), StandardCharsets.UTF_8));
+                Path.of("src/test/resources/golden-rebuilt.txt"), StandardCharsets.UTF_8));
 
         PrintStream originalOut = System.out;
         ByteArrayOutputStream captured = new ByteArrayOutputStream();
